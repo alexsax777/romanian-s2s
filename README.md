@@ -17,6 +17,38 @@ de provider și metrici reale de latență. Documentația cerințelor: PDF-ul de
 97 modele, zero GLM — verificat live `/v1/models`). Fallback configurat: `qwen/qwen3.7-flash:free`
 (planul Free al contului xKiro; modelele plătite dau 403 permission_denied).
 
+## Status: în dezvoltare — un început pentru S2S în română
+
+Proiectul este **early-stage / work in progress**: prima implementare funcțională de pipeline
+speech-to-speech în română pe hardware Apple Silicon, cu probe de latență măsurate, nu un
+produs finit. Verdictul cinstit de azi: **turn-taking cu ~4–7s latență, NU full-duplex**.
+Faza 2 în lucru: TTS pe fraze (streaming), VAD + barge-in pe microfon, benchmark 10 ture p90,
+voce live cu barge-in. PR-urile și testele pe alte componente sunt binevenite.
+
+## Folosind alte modele LLM (cloud sau full local)
+
+Adaptorul (`src/llm_adapter.py`) vorbește **OpenAI-compatible** pur: schimbi base URL + API key
++ model ID și restul codului rămâne neatins. Config-ul e doar env vars.
+
+**LLM full local** (dacă ai GPU/RAM mai bun — Mac cu 32–64GB+ unified memory sau PC cu GPU):
+orice server OpenAI-compatible local merge, fără nicio cheie:
+- [Ollama](https://ollama.com) — `OLLAMA_BASE_URL=http://localhost:11434/v1` + cheie oarecare
+- [LM Studio](https://lmstudio.ai) — `http://localhost:1234/v1`
+- `llama.cpp server` / `vLLM` pe Linux cu GPU
+- modele recomandate pt română conversațional: Qwen 3.x (7B+), GLM-5.3-Flash quantizat,
+  Gemma 3 — ca să-l folosești, pune providerul local primul în `_providers()` din
+  `src/llm_adapter.py` (listă simplă: nume, base_url, cheie, model ID)
+
+**Alte modele cloud:** orice endpoint OpenAI-compatible se schimbă prin env vars
+(`GONKAROUTER_*` / `XKIRO_*`). Cerințe pt tură vocală: streaming SSE de conținut,
+latență TTFT cât mai mică (sub ~1s), tokeni de conținut dinaite de reasoning
+(sau posibilitate de a-l dezactiva). Exemple compatibile: OpenAI, xAI, OpenRouter,
+DeepSeek, orice gateway OpenAI-compatible.
+
+**STT/TTS la fel de interschimbabile:** Whisper MLX orice mărime (small→medium→large/turbo),
+TTS-ul poate fi înlocuit cu orice backend local (Piper, F5-TTS, XTTS-v2) — interfața din
+`src/` e minimală intenționat, ca să fie ușor de schimbat componentele.
+
 ## Setup
 
 ```bash
