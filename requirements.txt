@@ -1,0 +1,6 @@
+openai
+requests
+numpy
+soundfile
+mlx-whisper
+supertonic
