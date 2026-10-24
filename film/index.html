@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<title>romanian-s2s — agent vocal în română</title>
+<meta name="viewport" content="width=1920, height=1080">
+<link rel="stylesheet" href="./runtime/fonts.css">
+<style>
+/* ACCENT = semnalul „vocea" — singurul element auriu din cadru e ce vorbește */
+:root {
+  --ground: #0F1013; --ground-2: #EDEBE6; --ink: #F4F2EE; --ink-soft: #8B8984;
+  --accent: #F2B84B; --font: "Inter", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #000; }
+#main { position:absolute; left:0; top:0; width:1920px; height:1080px; overflow:hidden; background:var(--ground); color:var(--ink); font-family:var(--font); font-weight:500; }
+.scene { position: absolute; inset: 0; }
+.cam { position: absolute; inset: 0; }
+.wb { position: absolute; bottom: 540px; width: 14px; border-radius: 7px; background: var(--accent); }
+.mono { font-family: ui-monospace, Menlo, monospace; }
+</style>
+</head>
+<body>
+<div id="main">
+
+  <!-- B1 HOOK f0-f102 -->
+  <section id="s1" class="scene">
+    <div id="wv1" style="position:absolute;inset:0"></div>
+    <div id="h1a" style="position:absolute;left:0;top:400px;width:1920px;text-align:center;font-size:120px;line-height:150px;white-space:pre">Salut.</div>
+    <div id="h1b" style="position:absolute;left:0;top:580px;width:1920px;text-align:center;font-size:76px;line-height:96px;white-space:pre;color:var(--ink-soft)">Asta nu vorbește om.</div>
+  </section>
+
+  <!-- B2 TURN f102-f288 -->
+  <section id="s2" class="scene" style="background:#EDEBE6;color:#101114">
+    <div id="wv2" style="position:absolute;left:210px;top:330px;width:1500px;height:10px;transform-origin:0% 50%"></div>
+    <div id="p_stt" style="position:absolute;left:170px;top:420px;width:440px;text-align:center;font-size:64px;line-height:80px;white-space:pre">STT</div>
+    <div id="p_stt_d" style="position:absolute;left:190px;top:508px;width:440px;text-align:center;font-size:30px;line-height:40px;color:#6A6862">Whisper MLX · local</div>
+    <div id="p_llm" style="position:absolute;left:740px;top:430px;width:400px;text-align:center;font-size:64px;line-height:80px;white-space:pre">LLM</div>
+    <div id="p_llm_s" style="position:absolute;left:760px;top:508px;width:600px;text-align:center;font-size:34px;line-height:46px;color:#6A6862;white-space:pre">GLM-5.3-Flash · GonkaRouter
+→ fallback xKiro, automat</div>
+    <div id="p_tts" style="position:absolute;left:1320px;top:430px;width:440px;text-align:center;font-size:64px;line-height:78px;white-space:pre">TTS</div>
+    <div id="p_tts_s" style="position:absolute;left:1380px;top:508px;width:460px;text-align:center;font-size:30px;line-height:42px;color:#6A6862">Supertonic 3 · local</div>
+    <div id="arrow1" style="position:absolute;left:665px;top:462px;width:110px;height:6px;background:#C9C6BF"></div>
+    <div id="arrow2" style="position:absolute;left:1320px;top:466px;width:110px;height:6px;background:#C9C6BF"></div>
+    <div id="t2" style="position:absolute;left:0;top:720px;width:1920px;text-align:center;font-size:52px;line-height:66px;white-space:pre">Un agent speech-to-speech în română — pe un Mac mini M4.</div>
+  </section>
+
+  <!-- B3 PROOF STT f288-f508 -->
+  <section id="s3" class="scene" style="background:#101114">
+    <img id="sh_whisper" src="./assets/shot_whisper_mlx.png" style="position:absolute;left:0;top:60px;width:1920px">
+    <div id="term3" class="mono" style="position:absolute;left:110px;top:810px;width:1720px;font-size:42px;line-height:58px;white-space:pre;color:#D9F99D">$ .venv/bin/python tests/test_stt_tts.py
+run 1: STT 0.35s (RTF 0.04x)
+     → Salut! Acesta este un test de sinteza vocala in limba romana</div>
+  </section>
+
+  <!-- B4 PROOF LLM f510-f699 -->
+  <section id="s4" class="scene">
+    <div id="cfg4" class="mono" style="position:absolute;left:320px;top:200px;width:1520px;font-size:46px;line-height:82px;white-space:pre;color:#C9E7DD">GONKAROUTER_BASE_URL=https://api.gonkarouter.io/v1
+GONKAROUTER_MODEL=zai-org/GLM-5.3-Flash</div>
+    <div id="tok4" style="position:absolute;left:340px;top:660px;width:1520px;font-size:54px;line-height:74px;white-space:pre;color:#F4F2EE">primul token în stream: 0.93s</div>
+    <div id="fb4" style="position:absolute;left:340px;top:880px;font-size:44px;white-space:pre;color:var(--accent)">xKiro preia automat — HTTP 200</div>
+  </section>
+
+  <!-- B5 PROOF TTS f702-f873 -->
+  <section id="s5" class="scene" style="background:#EDEBE6;color:#101114">
+    <img id="sh_sup" src="./assets/shot_supertonic.png" style="position:absolute;left:0;top:60px;width:1920px;opacity:.5">
+    <div id="num5" style="position:absolute;left:0;top:690px;width:1920px;text-align:center;font-size:136px;line-height:170px;white-space:pre;font-variant-numeric:tabular-nums;font-weight:600">8.57s audio → <span id="c5">0.00</span>s</div>
+    <div id="lbl5" style="position:absolute;left:0;top:850px;width:1920px;text-align:center;font-size:44px;color:#6A6862;white-space:pre">Supertonic 3 · română · RTF 0.20x</div>
+  </section>
+
+  <!-- B6 ONESTITATE f876-f1107 -->
+  <section id="s6" class="scene">
+    <div id="h6" style="position:absolute;left:0;top:290px;width:1920px;text-align:center;font-size:96px;line-height:130px;white-space:pre">Încă nu e real-time.</div>
+    <div id="h6b" style="position:absolute;left:0;top:600px;width:1920px;text-align:center;font-size:70px;line-height:96px;white-space:pre;color:var(--ink-soft)">mediană tură vocală: <span id="ttft6" style="color:#F4F2EE">0.00</span>s</div>
+    <div id="h6c" style="position:absolute;left:0;top:800px;width:1920px;text-align:center;font-size:44px;line-height:58px;white-space:pre;color:var(--ink-soft)">E în dezvoltare — un început pentru S2S în română.</div>
+  </section>
+
+  <!-- B7 CTA f1110-f1308 -->
+  <section id="s7" class="scene" style="background:#EDEBE6;color:#101114">
+    <div id="cam7" class="cam">
+      <img id="sh_repo" src="./assets/shot_repo.png" style="position:absolute;left:160px;top:120px;width:1680px;box-shadow:0 30px 80px rgba(16,17,20,.35)">
+    </div>
+    <div id="url7" style="position:absolute;left:0;top:940px;width:1920px;text-align:center;font-size:52px;line-height:68px;white-space:pre;color:#101114;font-weight:600">github.com/alexsax777/romanian-s2s</div>
+    <div id="und7" style="position:absolute;left:660px;top:1012px;width:600px;height:6px;background:#F2B84B;transform-origin:50% 50%"></div>
+    <div id="meta7" style="position:absolute;left:0;top:30px;width:1920px;text-align:center;font-size:40px;white-space:pre;color:#6A6862">Narat chiar de vocea proiectului.</div>
+  </section>
+
+</div>
+
+<script src="./runtime/vendor/gsap.min.js"></script>
+<script src="./runtime/motion.js"></script>
+<script src="./film.js"></script>
+</body>
+</html>

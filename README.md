@@ -17,6 +17,15 @@ de provider și metrici reale de latență. Documentația cerințelor: PDF-ul de
 97 modele, zero GLM — verificat live `/v1/models`). Fallback configurat: `qwen/qwen3.7-flash:free`
 (planul Free al contului xKiro; modelele plătite dau 403 permission_denied).
 
+## Video explicativ
+
+<video src="film/final.mp4" controls width="640"></video>
+
+**[film/final.mp4](film/final.mp4)** — 43.6s, narat în română. Detaliile de producție:
+[film/NOTE.md](film/NOTE.md). Sursa filmului: `film/index.html` + `film/film.js`
+(HyperFrames + runtime motionmaxxing), VO generat local cu Supertonic 3 (`film/gen_vo.py`,
+`film/mix_vo.py`).
+
 ## Status: în dezvoltare — un început pentru S2S în română
 
 Proiectul este **early-stage / work in progress**: prima implementare funcțională de pipeline

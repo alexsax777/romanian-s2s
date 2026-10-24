@@ -1,0 +1,7 @@
+Salut. Asta nu vorbește om.
+E un agent speech-to-speech în română, construit pe un Mac mini M4.
+Whisper MLX transcrie opt secunde de vorbire în treizeci și cinci de milisecunde.
+Limbajul vine din cloud — GLM Flash prin GonkaRouter, cu failover automat.
+Vocea e Supertonic 3: opt secunde de audio în mai puțin de două.
+Încă nu e real-time. E în dezvoltare. Dar e un început pentru S2S în română.
+Codul e pe GitHub. Și filmul ăsta e narat chiar de vocea proiectului.

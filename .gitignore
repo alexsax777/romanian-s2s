@@ -3,3 +3,9 @@
 data/*.wav
 __pycache__/
 *.log
+film/look/
+film/look-final/
+film/audio/vo/*.wav
+film/audio/mix.wav
+film/*.mp4.events.json
+film/draft.mp4
