@@ -45,6 +45,11 @@ latență TTFT cât mai mică (sub ~1s), tokeni de conținut dinaite de reasonin
 (sau posibilitate de a-l dezactiva). Exemple compatibile: OpenAI, xAI, OpenRouter,
 DeepSeek, orice gateway OpenAI-compatible.
 
+**GonkaRouter (primarul din exemplu):** la înscriere îți dă **$20 credit** și prețuri la
+GLM-5.3-Flash în jur de **~$0.0006 / 1M tokens** — la consumul unui asistent vocal
+(câteva sute de tokeni/tură), creditul durează practic pentru totdeauna. Merită folosit
+ca primar și doar ca fallback alt provider.
+
 **STT/TTS la fel de interschimbabile:** Whisper MLX orice mărime (small→medium→large/turbo),
 TTS-ul poate fi înlocuit cu orice backend local (Piper, F5-TTS, XTTS-v2) — interfața din
 `src/` e minimală intenționat, ca să fie ușor de schimbat componentele.
